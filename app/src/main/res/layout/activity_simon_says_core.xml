@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ivan.simonsaysgame.SimonSaysCore"
+    android:background="#ffffff">
+
+    <RelativeLayout
+        android:id="@+id/game"
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <ImageButton
+            android:id="@+id/button_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_6"
+            android:layout_toEndOf="@+id/button_8"
+            android:layout_toRightOf="@+id/button_8"
+            app:srcCompat="@drawable/icon_9" />
+
+        <ImageButton
+            android:id="@+id/button_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_6"
+            android:layout_toEndOf="@+id/button_7"
+            android:layout_toRightOf="@+id/button_7"
+            app:srcCompat="@drawable/icon_8" />
+
+        <ImageButton
+            android:id="@+id/button_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button_4"
+            android:layout_alignStart="@+id/button_4"
+            android:layout_below="@+id/button_5"
+            app:srcCompat="@drawable/icon_7" />
+
+        <ImageButton
+            android:id="@+id/button_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_3"
+            android:layout_toEndOf="@+id/button_5"
+            android:layout_toRightOf="@+id/button_5"
+            app:srcCompat="@drawable/icon_6" />
+
+        <ImageButton
+            android:id="@+id/button_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_2"
+            android:layout_toEndOf="@+id/button_4"
+            android:layout_toRightOf="@+id/button_4"
+            app:srcCompat="@drawable/icon_5" />
+
+        <ImageButton
+            android:id="@+id/button_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button_1"
+            android:layout_alignStart="@+id/button_1"
+            android:layout_below="@+id/button_1"
+            app:srcCompat="@drawable/icon_4" />
+
+        <ImageButton
+            android:id="@+id/button_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/button_2"
+            android:layout_toEndOf="@+id/button_2"
+            android:layout_toRightOf="@+id/button_2"
+            app:srcCompat="@drawable/icon_3" />
+
+        <ImageButton
+            android:id="@+id/button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button_0"
+            android:layout_alignStart="@+id/button_0"
+            android:layout_alignTop="@+id/button_1"
+            app:srcCompat="@drawable/icon_2" />
+
+        <ImageButton
+            android:id="@+id/button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/button_2"
+            android:layout_toStartOf="@+id/button_2"
+            app:srcCompat="@drawable/icon_1" />
+
+        <ImageButton
+            android:id="@+id/button_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_8"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/icon_0" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/start"
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="365dp"
+            app:srcCompat="@drawable/simon_says" />
+
+        <ImageButton
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            app:srcCompat="@drawable/play" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
