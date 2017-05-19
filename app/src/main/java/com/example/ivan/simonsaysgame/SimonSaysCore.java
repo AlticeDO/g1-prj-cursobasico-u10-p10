@@ -1,12 +1,12 @@
 package com.example.ivan.simonsaysgame;
 
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,12 +17,23 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
     private Random r = new Random();
     private Handler handler = new Handler();
     private int delay = 0;
+    MediaPlayer media = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simon_says_core);
         findViewById(R.id.play).setOnClickListener(this);
+        getSupportActionBar().hide();
+        media = MediaPlayer.create(this, R.raw.music2);
+        media.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        media.stop();
+        media.release();
     }
 
     @Override
@@ -180,7 +191,6 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.button_8).setOnClickListener(this);
         findViewById(R.id.button_9).setOnClickListener(this);
     }
-
     public void delayedSetOnClickListeners(int delay){
         handler.postDelayed(new Runnable() {
             @Override
