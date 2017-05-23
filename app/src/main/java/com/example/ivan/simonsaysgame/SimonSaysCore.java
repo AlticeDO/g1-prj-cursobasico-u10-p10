@@ -1,12 +1,19 @@
 package com.example.ivan.simonsaysgame;
 
+import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
+import android.widget.Spinner;
+import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,6 +25,12 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
     private Handler handler = new Handler();
     private int delay = 0;
     MediaPlayer media = new MediaPlayer();
+    private int [] delaylvl = {1000, 500, 250};
+    private int [] durationlvl = {800, 400, 200};
+    private int [] randlvl = {1,2,3};
+    private int [] scorelvl = {100,200,400};
+    private int lvl = 2;
+    private int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +44,64 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        media.stop();
-        media.release();
+        if(findViewById(R.id.game).isShown()){
+            findViewById(R.id.start).setVisibility(View.VISIBLE);
+            findViewById(R.id.game).setVisibility(View.INVISIBLE);
+            defaultImages();
+            handler.removeCallbacksAndMessages(null);
+            arr = new ArrayList<>();
+            score = 0;
+            setScore(score);
+        }
+        else{
+            new AlertDialog.Builder(this)
+                    .setTitle("Exiting App")
+                    .setMessage("Are you sure you want to quit?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            media.stop();
+                            media.release();
+                        }
+                    })
+                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    }).show();
+        }
     }
 
     @Override
     public void onClick(View view){
         switch(view.getId()){
             case R.id.play:
-                findViewById(R.id.start).setVisibility(View.INVISIBLE);
-                findViewById(R.id.game).setVisibility(View.VISIBLE);
-                addRand(3);
-                delayedStart(1000);
+
+                String [] list = new String[] {"Easy", "Normal", "Hard"};
+                final NumberPicker picker = new NumberPicker(this);
+                picker.setMaxValue(list.length-1);
+                picker.setDisplayedValues(list);
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Choose Difficulty:")
+                        .setView(picker)
+                        .setPositiveButton("PLAY", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                lvl = picker.getValue();
+                                findViewById(R.id.start).setVisibility(View.INVISIBLE);
+                                findViewById(R.id.game).setVisibility(View.VISIBLE);
+                                addRand(3);
+                                delayedStart(1000);
+                            }
+                        })
+                        .setNeutralButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
                 break;
             case R.id.button_0:
                 toggleImages(R.id.button_0, R.drawable.icon_0, R.drawable.icon_0_yellow, 0, 50);
@@ -97,7 +155,8 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
             index++;
             if(index>=arr.size()){
                 index = 0;
-                addRand(2);
+                addRand(randlvl[lvl]);
+                setScore(score+=scorelvl[lvl]);
                 toggleAnswer(R.id.answer, R.drawable.right, R.drawable.transparent, 1000);
                 delayedStart(1000);
             }
@@ -108,48 +167,48 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
     }
 
     public void start(){
-        unsetOnClickListeners();
+        clearOnClickListeners();
         for (int i: arr){
             switch (i){
                 case 0:
-                    toggleImages(R.id.button_0, R.drawable.icon_0, R.drawable.icon_0_yellow, delay, 800);
-                    delay+=1000;
+                    toggleImages(R.id.button_0, R.drawable.icon_0, R.drawable.icon_0_yellow, delay, durationlvl[lvl]);
+                    delay+=delaylvl[lvl];
                     break;
                 case 1:
-                    toggleImages(R.id.button_1, R.drawable.icon_1, R.drawable.icon_1_yellow, delay, 800);
-                    delay+=1000;
+                    toggleImages(R.id.button_1, R.drawable.icon_1, R.drawable.icon_1_yellow, delay, durationlvl[lvl]);
+                    delay+=delaylvl[lvl];
                     break;
                 case 2:
-                    toggleImages(R.id.button_2, R.drawable.icon_2, R.drawable.icon_2_yellow, delay, 800);
-                    delay+=1000;
+                    toggleImages(R.id.button_2, R.drawable.icon_2, R.drawable.icon_2_yellow, delay, durationlvl[lvl]);
+                    delay+=delaylvl[lvl];
                     break;
                 case 3:
-                    toggleImages(R.id.button_3, R.drawable.icon_3, R.drawable.icon_3_yellow, delay, 800);
-                    delay+=1000;
+                    toggleImages(R.id.button_3, R.drawable.icon_3, R.drawable.icon_3_yellow, delay, durationlvl[lvl]);
+                    delay+=delaylvl[lvl];
                     break;
                 case 4:
-                    toggleImages(R.id.button_4, R.drawable.icon_4, R.drawable.icon_4_yellow, delay, 800);
-                    delay+=1000;
+                    toggleImages(R.id.button_4, R.drawable.icon_4, R.drawable.icon_4_yellow, delay, durationlvl[lvl]);
+                    delay+=delaylvl[lvl];
                     break;
                 case 5:
-                    toggleImages(R.id.button_5, R.drawable.icon_5, R.drawable.icon_5_yellow, delay, 800);
-                    delay+=1000;
+                    toggleImages(R.id.button_5, R.drawable.icon_5, R.drawable.icon_5_yellow, delay, durationlvl[lvl]);
+                    delay+=delaylvl[lvl];
                     break;
                 case 6:
-                    toggleImages(R.id.button_6, R.drawable.icon_6, R.drawable.icon_6_yellow, delay, 800);
-                    delay+=1000;
+                    toggleImages(R.id.button_6, R.drawable.icon_6, R.drawable.icon_6_yellow, delay, durationlvl[lvl]);
+                    delay+=delaylvl[lvl];
                     break;
                 case 7:
-                    toggleImages(R.id.button_7, R.drawable.icon_7, R.drawable.icon_7_yellow, delay, 800);
-                    delay+=1000;
+                    toggleImages(R.id.button_7, R.drawable.icon_7, R.drawable.icon_7_yellow, delay, durationlvl[lvl]);
+                    delay+=delaylvl[lvl];
                     break;
                 case 8:
-                    toggleImages(R.id.button_8, R.drawable.icon_8, R.drawable.icon_8_yellow, delay, 800);
-                    delay+=1000;
+                    toggleImages(R.id.button_8, R.drawable.icon_8, R.drawable.icon_8_yellow, delay, durationlvl[lvl]);
+                    delay+=delaylvl[lvl];
                     break;
                 case 9:
-                    toggleImages(R.id.button_9, R.drawable.icon_9, R.drawable.icon_9_yellow, delay, 800);
-                    delay+=1000;
+                    toggleImages(R.id.button_9, R.drawable.icon_9, R.drawable.icon_9_yellow, delay, durationlvl[lvl]);
+                    delay+=delaylvl[lvl];
                     break;
             }
         }
@@ -166,7 +225,11 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
         }, delay);
     }
 
-    public void unsetOnClickListeners(){
+    public void setScore(int score){
+        ((TextView) findViewById(R.id.score)).setText("Score: "+Integer.toString(score));
+    }
+
+    public void clearOnClickListeners(){
         findViewById(R.id.button_0).setOnClickListener(null);
         findViewById(R.id.button_1).setOnClickListener(null);
         findViewById(R.id.button_2).setOnClickListener(null);
@@ -190,6 +253,20 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.button_7).setOnClickListener(this);
         findViewById(R.id.button_8).setOnClickListener(this);
         findViewById(R.id.button_9).setOnClickListener(this);
+    }
+
+    public void defaultImages(){
+        setImage(R.id.button_0, R.drawable.icon_0);
+        setImage(R.id.button_1, R.drawable.icon_1);
+        setImage(R.id.button_2, R.drawable.icon_2);
+        setImage(R.id.button_3, R.drawable.icon_3);
+        setImage(R.id.button_4, R.drawable.icon_4);
+        setImage(R.id.button_5, R.drawable.icon_5);
+        setImage(R.id.button_6, R.drawable.icon_6);
+        setImage(R.id.button_7, R.drawable.icon_7);
+        setImage(R.id.button_8, R.drawable.icon_8);
+        setImage(R.id.button_9, R.drawable.icon_9);
+        setAnswer(R.id.answer, R.drawable.transparent);
     }
     public void delayedSetOnClickListeners(int delay){
         handler.postDelayed(new Runnable() {
