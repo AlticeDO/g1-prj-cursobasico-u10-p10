@@ -63,11 +63,7 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
                             media.release();
                         }
                     })
-                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    }).show();
+                    .setNegativeButton("NO", null).show();
         }
     }
 
