@@ -149,7 +149,7 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
         if(arr.get(index)==num){
             index++;
             if(index>=arr.size()){
-//                index = 0;
+                index = 0;
                 addRand(randlvl[lvl]);
                 setScore(score+=scorelvl[lvl]);
                 toggleAnswer(R.id.answer, R.drawable.right, R.drawable.transparent, 1000);
