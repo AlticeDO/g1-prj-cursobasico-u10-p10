@@ -7,12 +7,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,6 +36,7 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.play).setOnClickListener(this);
         getSupportActionBar().hide();
         media = MediaPlayer.create(this, R.raw.music2);
+        media.setLooping(true);
         media.start();
     }
 
@@ -82,6 +80,7 @@ public class SimonSaysCore extends AppCompatActivity implements View.OnClickList
                 final NumberPicker picker = new NumberPicker(this);
                 picker.setMaxValue(list.length-1);
                 picker.setDisplayedValues(list);
+                picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
                 new AlertDialog.Builder(this)
                         .setTitle("Choose Difficulty:")
